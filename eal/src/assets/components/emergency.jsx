@@ -22,25 +22,26 @@ const Emergency = () => {
   useEffect(() => {
     const fetchSensorData = async () => {
       try {
-        const res = await axios.post("https://eal-automation-backend.onrender.com/upload-sensor-data");
-
-        const fetchedData = res.data?.data || []; // Accessing the `data` key safely
-
+        const res = await axios.get("https://eal-automation-backend.onrender.com/get-sensor-data");
+    
+        const fetchedData = res.data?.data || [];
+    
         console.log("Fetched Data:", fetchedData);
-
+    
         const updatedSensorData = defaultSensorData.map(sensor => ({
           ...sensor,
           value: fetchedData.find(item => item.key === sensor.key)?.value ?? "N/A"
         }));
-
+    
         setSensorReadings(updatedSensorData);
       } catch (error) {
         console.error("Error fetching sensor data:", error);
         setSensorReadings(defaultSensorData);
       }
     };
+    
 
-    fetchSensorData();
+  
 
     const interval = setInterval(fetchSensorData, 5000); // Refresh every 5 seconds
     return () => clearInterval(interval);
