@@ -14,7 +14,7 @@ function Navbar() {
       }}>
       
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">🛠 Mining</Link>
+        <Link className="navbar-brand" to="/">KOLAR GOLD FIELDS ( <strong>KGF</strong>)</Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -23,10 +23,13 @@ function Navbar() {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/">🏠 Home</Link>
+              <Link className="nav-link text-white" to="/">home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/addworkers">➕ Add Worker</Link>
+              <Link className="nav-link text-white" to="/getdetails">get details</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-white" to="/addworkers">add worker</Link>
             </li>
           </ul>
         </div>

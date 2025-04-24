@@ -1,130 +1,125 @@
-import { useState } from "react";
-import axios from "axios";
+// src/components/Home.js
+import React from "react";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "../components/1520043416793.webp"; // Import your background image
+import axios from "axios"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function Home() {
-  const navigate = useNavigate();
-  const [worker, setWorker] = useState({ name: "", phone: "" });
-  const [chatVisible, setChatVisible] = useState(false);
+const Home = () => {
+    const [chatVisible, setChatVisible] = useState(false);
   const [messages, setMessages] = useState([{ sender: "bot", text: "Hello! How can I help you?" }]);
   const [userMessage, setUserMessage] = useState("");
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setWorker({ ...worker, [name]: value });
-  };
-
-  const handleGetDetails = () => {
-    if (!worker.phone.trim()) {
-      alert("Please enter a phone number.");
-      return;
-    }
-    navigate("/details", { state: { phone: worker.phone } });
-  };
+  const navigate = useNavigate();
 
   
-  const handleSendMessage = async () => {
-    if (!userMessage.trim()) return;
-    const newMessages = [...messages, { sender: "user", text: userMessage }];
-    setMessages(newMessages);
-    setUserMessage("");
-
-    try {
-      const response = await axios.post("http://localhost:3000/chatBot/chat", { message: userMessage });
-
-      console.log("Response:", response.data); // Debugging step
-
-      setMessages([...newMessages, { sender: "bot", text: response.data.reply }]); // Fixed 'reply' instead of 'result'
-    } catch (error) {
-      console.error("Error sending message:", error);
-      setMessages([...newMessages, { sender: "bot", text: "Sorry, I couldn't process your request." }]);
-    }
-};
-
-
+    const handleSendMessage = async () => {
+      if (!userMessage.trim()) return;
+      const newMessages = [...messages, { sender: "user", text: userMessage }];
+      setMessages(newMessages);
+      setUserMessage("");
+  
+      try {
+        const response = await axios.post("http://localhost:3000/chatBot/chat", { message: userMessage });
+  
+        console.log("Response:", response.data); // Debugging step
+  
+        setMessages([...newMessages, { sender: "bot", text: response.data.reply }]); // Fixed 'reply' instead of 'result'
+      } catch (error) {
+        console.error("Error sending message:", error);
+        setMessages([...newMessages, { sender: "bot", text: "Sorry, I couldn't process your request." }]);
+      }
+  };
   return (
-    <div style={{
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      height: "100vh",
-      width: "100vw",
-      position: "fixed",
-      top: 0,
-      left: 0
-    }}>
-      <div style={{
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        height: "100vh",
-        width: "100vw",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-        <div style={{
-          backgroundColor: "rgba(30, 30, 30, 0.9)",
-          width: "400px",
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
-          textAlign: "center",
-          color: "white"
-        }}>
-          <h3>Worker Details</h3>
+    <div className="home-page">
+      <header
+        className="bg-dark text-white text-center"
+        style={{ paddingTop: "6rem", paddingBottom: "3rem" }}
+      >
+        <Container>
+          <h1 className="display-4">Mining Worker Portal</h1>
+          <p className="lead">
+            Tools to support health, schedule, and safety in the mines.
+          </p>
+          <Button variant="primary" onClick={() => navigate("/details")}>
+            Go to getdetails sections
+          </Button>
+        </Container>
+      </header>
 
-          <div className="mb-3">
-            <input
-              type="text"
-              name="name"
-              value={worker.name}
-              onChange={handleInputChange}
-              placeholder="Enter Worker's Name"
-              style={{
-                backgroundColor: "#444",
-                color: "white",
-                border: "1px solid #555",
-                padding: "8px",
-                width: "100%",
-                borderRadius: "5px"
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              name="phone"
-              value={worker.phone}
-              onChange={handleInputChange}
-              placeholder="Enter Mobile Number"
-              style={{
-                backgroundColor: "#444",
-                color: "white",
-                border: "1px solid #555",
-                padding: "8px",
-                width: "100%",
-                borderRadius: "5px"
-              }}
-            />
-          </div>
-          <button onClick={handleGetDetails} style={{
-            backgroundColor: "#007bff",
-            color: "white",
-            padding: "10px",
-            width: "100%",
-            borderRadius: "5px",
-            fontWeight: "bold",
-            border: "none"
-          }}>
-            Get Details
-          </button>
-        </div>
-      </div>
+      <section className="py-5 bg-light">
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={4} className="mb-4">
+              <Card
+                className="shadow-lg border-0"
+                onClick={() => navigate("/appointments")}
+                style={{ cursor: "pointer", padding: "20px", height: "100%" }}
+              >
+                <Card.Body className="text-center">
+                  <Card.Title style={{ fontSize: "1.5rem" }}>
+                    🩺 Doctor Appointment
+                  </Card.Title>
+                  <Card.Text>
+                    Book and manage medical appointments for health checkups and emergencies.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
 
-      {/* Chatbot Button */}
+            <Col md={4} className="mb-4">
+              <Card
+                className="shadow-lg border-0"
+                onClick={() => navigate("/calendar")}
+                style={{ cursor: "pointer", padding: "20px", height: "100%" }}
+              >
+                <Card.Body className="text-center">
+                  <Card.Title style={{ fontSize: "1.5rem" }}>
+                    📅 Calendar
+                  </Card.Title>
+                  <Card.Text>
+                    View your shift schedule, meeting reminders, and special event alerts.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col md={4} className="mb-4">
+              <Card
+                className="shadow-lg border-0"
+                onClick={() => navigate("/safety")}
+                style={{ cursor: "pointer", padding: "20px", height: "100%" }}
+              >
+                <Card.Body className="text-center">
+                  <Card.Title style={{ fontSize: "1.5rem" }}>
+                    🦺 Safety & Security
+                  </Card.Title>
+                  <Card.Text>
+                    Stay updated with safety protocols, evacuation plans, and hazard alerts.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col md={4} className="mb-4">
+              <Card
+                className="shadow-lg border-0"
+                onClick={() => navigate("/emergency")}
+                style={{ cursor: "pointer", padding: "20px", height: "100%", backgroundColor: "#fff3cd" }}
+              >
+                <Card.Body className="text-center">
+                  <Card.Title style={{ fontSize: "1.5rem" }}>
+                    🚨 Emergency Alerts
+                  </Card.Title>
+                  <Card.Text>
+                    Check live sensor data and real-time emergency conditions in the mines.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <button onClick={() => setChatVisible(!chatVisible)} style={{
         position: "fixed",
         bottom: "20px",
@@ -191,4 +186,6 @@ export default function Home() {
       )}
     </div>
   );
-}
+};
+
+export default Home;
