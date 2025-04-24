@@ -22,18 +22,21 @@ const Emergency = () => {
   useEffect(() => {
     const fetchSensorData = async () => {
       try {
-        const res = await axios.get("https://eal-automation-backend.onrender.com/upload-sensor-data"); // Adjust to actual backend route
-        const fetchedData = res.data;
+        const res = await axios.post("https://eal-automation-backend.onrender.com/upload-sensor-data");
+
+        const fetchedData = res.data?.data || []; // Accessing the `data` key safely
+
+        console.log("Fetched Data:", fetchedData);
 
         const updatedSensorData = defaultSensorData.map(sensor => ({
           ...sensor,
-          value: fetchedData[sensor.key] ?? "N/A"
+          value: fetchedData.find(item => item.key === sensor.key)?.value ?? "N/A"
         }));
 
         setSensorReadings(updatedSensorData);
       } catch (error) {
         console.error("Error fetching sensor data:", error);
-        setSensorReadings(defaultSensorData); // fallback
+        setSensorReadings(defaultSensorData);
       }
     };
 
