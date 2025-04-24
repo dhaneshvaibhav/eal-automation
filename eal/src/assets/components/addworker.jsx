@@ -36,7 +36,7 @@ export default function AddWorkerPage() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/get", { ...worker, phone: formattedPhone });
+      const response = await axios.post("https://eal-automation-backend.onrender.com/get", { ...worker, phone: formattedPhone });
 
       if (response.status === 201) {
         setMessage(response.data.message);

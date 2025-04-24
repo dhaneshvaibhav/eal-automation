@@ -19,7 +19,7 @@ export default function Getdetails() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/add", {
+      const response = await axios.post("https://eal-automation-backend.onrender.com/add", {
         phone: worker.phone,
       });
 

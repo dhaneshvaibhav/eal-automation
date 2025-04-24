@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 // Load environment variables
 const port = process.env.PORT || 3000;
 const connection = process.env.MONGODB;
-
+console.log("MongoDB Connection String:", connection);
+console.log("type of string", typeof connection);
 // Connect to MongoDB with error handling
 mongoose.connect(connection)
   .then(() => console.log("✅ MongoDB connected"))
