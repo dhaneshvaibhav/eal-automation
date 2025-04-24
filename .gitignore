@@ -11,7 +11,7 @@ eal/node_modules/
 server/node_modules/
 
 # Environment files
-server/.env/
+server/.env
 
 # Build directories
 dist/
