@@ -22,7 +22,7 @@ const Emergency = () => {
   useEffect(() => {
     const fetchSensorData = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/upload-sensor-data"); // Adjust to actual backend route
+        const res = await axios.get("https://eal-automation-backend.onrender.com/upload-sensor-data"); // Adjust to actual backend route
         const fetchedData = res.data;
 
         const updatedSensorData = defaultSensorData.map(sensor => ({

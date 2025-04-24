@@ -20,7 +20,7 @@ const Home = () => {
       setUserMessage("");
   
       try {
-        const response = await axios.post("http://localhost:3000/chatBot/chat", { message: userMessage });
+        const response = await axios.post("https://eal-automation-backend.onrender.com/chatBot/chat", { message: userMessage });
   
         console.log("Response:", response.data); // Debugging step
   

@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 // Load environment variables
 const port = process.env.PORT || 3000;
 const connection = process.env.MONGODB;
-
+console.log("MongoDB Connection String:", connection);
+console.log("type of string", typeof connection);
 // Connect to MongoDB with error handling
 mongoose.connect(connection)
   .then(() => console.log("✅ MongoDB connected"))
@@ -18,7 +19,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173','https://eal-automation.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
