@@ -105,7 +105,7 @@ app.post('/send-alert', async (req, res) => {
     const sms = await client.messages.create({
       body: message,
       from: process.env.TWILIO_PHONE,
-      to: process.env.ADMIN_PHONE,
+      to: process.env.ADMIN,
     });
 
     console.log("📨 SMS sent:", sms.sid);
