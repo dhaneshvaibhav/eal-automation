@@ -17,7 +17,7 @@ const Emergency = () => {
     { id: 7, usage: "Altitude", name: "BMP280", key: "altitude", gpio: "GPIO 19", signal: "SCL", icon: "📏" },
     { id: 8, usage: "Human Presence", name: "PIR Sensor", key: "pir", gpio: "GPIO 27", signal: "OUT", icon: "🚶" },
     { id: 9, usage: "Light Detection", name: "LDR Sensor", key: "ldr", gpio: "GPIO 34", signal: "A0", icon: "💡" },
-    { id: 10, usage: "Gas Detection (Analog)", name: "MQ2 Sensor", key: "mq2Ao", gpio: "GPIO 35", signal: "A0", icon: "🔥", threshold: 500 },
+    { id: 10, usage: "Gas Detection (Analog)", name: "MQ2 Sensor", key: "mq2Ao", gpio: "GPIO 35", signal: "A0", icon: "🔥", threshold: 2000 },
     { id: 11, usage: "Gas Detection (Digital)", name: "MQ2 Sensor", key: "mq2Do", gpio: "GPIO 25", signal: "D0", icon: "🔥" },
   ];
 
