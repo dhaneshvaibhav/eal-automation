@@ -91,6 +91,32 @@ app.get('/get-sensor-data', (req, res) => {
   res.status(200).json({ data: latestFormattedData });
 });
 
+const twilio = require('twilio');
+const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH);
+
+app.post('/send-alert', async (req, res) => {
+  const { message } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ error: "Message is required." });
+  }
+
+  try {
+    const sms = await client.messages.create({
+      body: message,
+      from: process.env.TWILIO_PHONE,
+      to: process.env.ADMIN_PHONE,
+    });
+
+    console.log("📨 SMS sent:", sms.sid);
+    res.status(200).json({ status: "Alert sent successfully", sid: sms.sid });
+  } catch (error) {
+    console.error("❌ Failed to send alert:", error);
+    res.status(500).json({ error: "Failed to send alert." });
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`🚀 App is running on port ${port}`);
 });
