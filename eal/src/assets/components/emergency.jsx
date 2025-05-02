@@ -105,6 +105,7 @@ const Emergency = () => {
                     ({sensor.name})
                   </span>
                 </Card.Title>
+                
                 <Card.Text><strong>GPIO:</strong> {sensor.gpio}</Card.Text>
                 <Card.Text><strong>Signal:</strong> {sensor.signal}</Card.Text>
                 <Card.Text><strong>Reading:</strong> {sensor.value}</Card.Text>
